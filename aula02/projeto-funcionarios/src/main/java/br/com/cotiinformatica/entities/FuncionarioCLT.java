@@ -9,7 +9,17 @@ public class FuncionarioCLT extends Funcionario {
     private Double valorBeneficios;
     private Double valorDescontos;
 
-    public FuncionarioCLT(UUID id, String nome, String cpf, String matricula, LocalDate dataAdmissao, Double salarioBase, Double valorBeneficios, Double valorDescontos) {
+    /**
+     * Construtor da classe FuncionarioCLT, que inicializa os atributos herdados
+     * @param nome
+     * @param cpf
+     * @param matricula
+     * @param dataAdmissao
+     * @param salarioBase
+     * @param valorBeneficios
+     * @param valorDescontos
+     */
+    public FuncionarioCLT(String nome, String cpf, String matricula, LocalDate dataAdmissao, Double salarioBase, Double valorBeneficios, Double valorDescontos) {
         super(nome, cpf, matricula, dataAdmissao);
         this.salarioBase = salarioBase;
         this.valorBeneficios = valorBeneficios;
