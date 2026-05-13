@@ -9,6 +9,8 @@ public class FuncionarioCLT extends Funcionario {
     private Double valorBeneficios;
     private Double valorDescontos;
 
+    public FuncionarioCLT() { }
+
     /**
      * Construtor da classe FuncionarioCLT, que inicializa os atributos herdados
      * @param nome

@@ -90,13 +90,11 @@ public class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return "Funcionario{" +
-                "id: " + id +
+        return "id: " + id +
                 ", nome: '" + nome + '\'' +
                 ", cpf: '" + cpf + '\'' +
                 ", matricula: '" + matricula + '\'' +
-                ", dataAdmissao: " + dataAdmissao +
-                '}';
+                ", dataAdmissao: " + dataAdmissao;
     }
 }
 
