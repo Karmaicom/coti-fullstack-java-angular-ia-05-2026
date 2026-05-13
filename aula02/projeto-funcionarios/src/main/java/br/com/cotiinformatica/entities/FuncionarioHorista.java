@@ -45,4 +45,12 @@ public class FuncionarioHorista extends Funcionario {
     public Double calcularSalarioBruto() {
         return valorHora * horasTrabalhadas;
     }
+
+    @Override
+    public String toString() {
+        return "FUNCIONARIO HORISTA{" +
+                "VALOR HORA: " + valorHora +
+                ", HORAS TRABALHADAS: " + horasTrabalhadas +
+                '}';
+    }
 }

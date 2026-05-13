@@ -68,7 +68,7 @@ public class FuncionarioCLT extends Funcionario {
 
     @Override
     public String toString() {
-        return "FuncionarioCLT { " +
+        return "FUNCIONARIO CLT { " +
                 super.toString() +
                 ", SALARIO BASE: " + salarioBase +
                 ", VALOR BENEFICIOS: " + valorBeneficios +
