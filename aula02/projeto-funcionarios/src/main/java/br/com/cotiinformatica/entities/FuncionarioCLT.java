@@ -70,9 +70,9 @@ public class FuncionarioCLT extends Funcionario {
     public String toString() {
         return "FuncionarioCLT { " +
                 super.toString() +
-                ", salarioBase: " + salarioBase +
-                ", valorBeneficios: " + valorBeneficios +
-                ", valorDescontos: " + valorDescontos +
+                ", SALARIO BASE: " + salarioBase +
+                ", VALOR BENEFICIOS: " + valorBeneficios +
+                ", VALOR DESCONTOS: " + valorDescontos +
                 '}';
     }
 }
