@@ -1,17 +1,59 @@
 package br.com.cotiinformatica;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import br.com.cotiinformatica.entities.EmpresaLimitada;
+import br.com.cotiinformatica.entities.EmpresaMEI;
+
+import java.util.Scanner;
+import java.util.UUID;
+
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        // Criando um objeto para usarmos a classe Scanner do Java
+        var scanner = new Scanner(System.in);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        System.out.println("SISTEMA DE CADASTRO DE EMPRESAS");
+        System.out.println("--------------------------------------------\n");
+
+        var empresaMEI = new EmpresaMEI();
+        empresaMEI.setId(UUID.randomUUID());
+
+        System.out.println("DADOS DA EMPRESA MEI");
+        System.out.print("Informe a razao social: ");
+        empresaMEI.setRazaoSocial(scanner.nextLine());
+
+        System.out.print("Informe o cnpj: ");
+        empresaMEI.setCnpj(scanner.nextLine());
+
+        System.out.print("Informe o faturamento mensal: ");
+        empresaMEI.setFaturamentoMensal(Double.parseDouble(scanner.nextLine()));
+
+        System.out.println("\nDADOS DA EMPRESA MEI CADASTRADA");
+        System.out.println(empresaMEI);
+
+        System.out.println("Lucro liquido: " + empresaMEI.calcularLucroLiquido());
+
+        System.out.println("--------------------------------------------\n");
+
+        var empresaLimitada = new EmpresaLimitada();
+        empresaLimitada.setId(UUID.randomUUID());
+
+        System.out.println("DADOS DA EMPRESA LIMITADA");
+        System.out.print("Informe a razao social: ");
+        empresaLimitada.setRazaoSocial(scanner.nextLine());
+
+        System.out.print("Informe o cnpj: ");
+        empresaLimitada.setCnpj(scanner.nextLine());
+
+        System.out.print("Informe o capital social: ");
+        empresaLimitada.setCapitalSocial(Double.parseDouble(scanner.nextLine()));
+
+        System.out.print("Informe a quantidade de socios: ");
+        empresaLimitada.setQuantidadeSocios(Integer.parseInt(scanner.nextLine()));
+
+        System.out.println("\nDADOS DA EMPRESA LIMITADA CADASTRADA");
+        System.out.println(empresaLimitada);
+
+        System.out.println("Capital por socio: " + empresaLimitada.calcularCapitalPorSocio());
+
     }
 }
