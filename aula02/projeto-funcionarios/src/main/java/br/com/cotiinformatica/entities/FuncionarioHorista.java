@@ -7,6 +7,8 @@ public class FuncionarioHorista extends Funcionario {
     private Double valorHora;
     private Integer horasTrabalhadas;
 
+    public FuncionarioHorista() { }
+
     /**
      * Construtor da classe FuncionarioHorista, que inicializa os atributos herdados
      * @param nome
