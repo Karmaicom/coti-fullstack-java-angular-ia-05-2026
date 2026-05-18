@@ -8,6 +8,8 @@ public class Cliente {
     public String nome;
     public String email;
 
-
+    public Cliente() {
+        id = UUID.randomUUID();
+    }
 
 }

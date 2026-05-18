@@ -14,11 +14,11 @@ public class ClienteService {
     public void salvarDados(Cliente cliente) {
         try {
 
-            var fileWriter = new FileWriter("c:\\temp\\cliente_" + cliente.id, true);
+            var fileWriter = new FileWriter("c:\\temp\\cliente_" + cliente.id + ".xml", true);
             var printWriter = new PrintWriter(fileWriter);
 
             printWriter.write("<?xml version='1.0' encoding='UTF-8'?>");
-            printWriter.write("<clientes>");
+            printWriter.write("<cliente>");
                 printWriter.write("<id>" + cliente.id + "</id>");
                 printWriter.write("<nome>" + cliente.nome + "</nome>");
                 printWriter.write("<email>" + cliente.email + "</email>");

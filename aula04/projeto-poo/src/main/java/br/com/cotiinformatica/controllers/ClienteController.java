@@ -1,6 +1,7 @@
 package br.com.cotiinformatica.controllers;
 
 import br.com.cotiinformatica.entities.Cliente;
+import br.com.cotiinformatica.services.ClienteService;
 
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class ClienteController {
 
         var scanner = new Scanner(System.in);
         var cliente = new Cliente();
+        var service = new ClienteService();
 
         System.out.println("INFORME OS DADOS DO CLIENTE:\n");
 
@@ -21,6 +23,8 @@ public class ClienteController {
 
         System.out.print("EMAIL.................: ");
         cliente.email = scanner.nextLine();
+
+        service.salvarDados(cliente);
     }
 
 }
