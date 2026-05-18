@@ -19,10 +19,10 @@ public class ClienteController {
         System.out.println("INFORME OS DADOS DO CLIENTE:\n");
 
         System.out.print("NOME..................: ");
-        cliente.nome = scanner.nextLine();
+        cliente.setNome(scanner.nextLine());
 
         System.out.print("EMAIL.................: ");
-        cliente.email = scanner.nextLine();
+        cliente.setEmail(scanner.nextLine());
 
         service.salvarDados(cliente);
     }
