@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 
 public class ClienteService {
 
+    /**
+     * Metodo para salvar os dados de um cliente
+     * @param cliente
+     */
     public void salvarDados(Cliente cliente) {
         try {
 
