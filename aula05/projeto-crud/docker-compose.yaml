@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: projeto-crud-mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bd_produtos
+      MYSQL_USER: coti
+      MYSQL_PASSWORD: coti
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - projeto-crud-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: projeto-crud-phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "5050:80"
+    environment:
+      PMA_USER: coti
+      PMA_PASSWORD: coti
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - projeto-crud-network
+
+volumes:
+  mysql_data:
+
+networks:
+  projeto-crud-network:
+    driver: bridge
