@@ -5,12 +5,10 @@ import java.sql.DriverManager;
 
 public class ConnectionFactory {
 
-    private static final String host = """
-                jdbc:mysql://localhost:3307/bd_produtos
-                ?useSSL=false
-                ?serverTimezone=America/Sao_Paulo
-                ?allowPublicKeyRetrieval=true
-            """;
+    private static final String host = "jdbc:mysql://localhost:3307/bd_produtos"
+                + "?useSSL=false"
+                +"&serverTimezone=America/Sao_Paulo"
+                +"&allowPublicKeyRetrieval=true";
     private static final String user = "coti";
     private static final String password = "coti";
 
