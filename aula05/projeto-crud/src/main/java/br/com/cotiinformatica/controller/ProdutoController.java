@@ -27,6 +27,7 @@ public class ProdutoController {
             produto.setQuantidade(Integer.parseInt(scanner.nextLine()));
 
             System.out.println(repository.inserir(produto));
+            System.out.println(repository.consultar());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
@@ -36,6 +37,19 @@ public class ProdutoController {
     public List<Produto> consultar() {
         try {
             return repository.consultar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Produto consultarPorId() {
+        try {
+            System.out.print("Informe o id do produto: ");
+            var id = Integer.parseInt(scanner.nextLine());
+
+            return repository.consultarPorId(id);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
@@ -62,6 +76,7 @@ public class ProdutoController {
             produto.setQuantidade(Integer.parseInt(scanner.nextLine()));
 
             System.out.println(repository.atualizar(produto));
+            System.out.println(repository.consultar());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
@@ -70,12 +85,13 @@ public class ProdutoController {
 
     public void excluirProduto() {
         try {
-            System.out.println("===== ATUALIZAR PRODUTO =====");
+            System.out.println("===== EXCLUIR PRODUTO =====");
 
             System.out.print("Informe o id do produto: ");
             var id = Integer.parseInt(scanner.nextLine());
 
             System.out.println(repository.excluir(id));
+            System.out.println(repository.consultar());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());

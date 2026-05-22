@@ -35,9 +35,6 @@ public class ProdutoRepository {
         // Executar a instrução sql no banco de dados
         statement.execute();
 
-        // Fechar conexao
-        ConnectionFactory.closeConnection(this.connection);
-
         return this.bundleMessages.getString("mensagem.produto.criado");
     }
 
@@ -58,9 +55,6 @@ public class ProdutoRepository {
 
         var result = statement.executeUpdate();
 
-        // Fechar conexao
-        ConnectionFactory.closeConnection(this.connection);
-
         if (result > 0) return this.bundleMessages.getString("mensagem.produto.atualizado");
         else return this.bundleMessages.getString("mensagem.produto.nao.encontrado");
 
@@ -80,13 +74,15 @@ public class ProdutoRepository {
 
         var result = statement.executeUpdate();
 
-        // Fechar conexao
-        ConnectionFactory.closeConnection(this.connection);
-
         if (result > 0) return this.bundleMessages.getString("mensagem.produto.excluido");
         else return this.bundleMessages.getString("mensagem.produto.nao.encontrado");
     }
 
+    /**
+     * Listar todos os produtos encontrados no banco de dados
+     * @return
+     * @throws Exception
+     */
     public List<Produto> consultar() throws Exception {
         var query = "select id, nome, preco, quantidade from produtos";
 
@@ -105,9 +101,32 @@ public class ProdutoRepository {
             produtos.add(produto);
         }
 
-        // Fechar conexao
-        ConnectionFactory.closeConnection(this.connection);
-
         return produtos;
+    }
+
+    /**
+     * Buscar produto no banco de dados através do id do produto
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Produto consultarPorId(Integer id) throws Exception {
+        var query = "select id, nome, preco, quantidade from produtos where id = ?";
+
+        var statement = this.connection.prepareStatement(query);
+        statement.setInt(1, id);
+
+        var result = statement.executeQuery();
+        Produto produto = null;
+
+        if(result.next()) {
+            produto = new Produto(
+                    result.getInt("id"),
+                    result.getString("nome"),
+                    result.getDouble("preco"),
+                    result.getInt("quantidade"));
+        }
+
+        return produto;
     }
 }
