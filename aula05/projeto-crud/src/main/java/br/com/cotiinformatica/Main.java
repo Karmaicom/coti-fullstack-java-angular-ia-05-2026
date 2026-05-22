@@ -11,6 +11,8 @@ public class Main {
 
         var controller = new ProdutoController();
         //controller.inserirProduto();
-        System.out.println(controller.consultar());
+        //System.out.println(controller.consultar());
+        //controller.atualizarProduto();
+        controller.excluirProduto();
     }
 }

@@ -48,7 +48,7 @@ public class ProdutoRepository {
      * @throws Exception
      */
     public String atualizar(Produto produto) throws Exception {
-        var query = "update produtos set nome = ?, preco = ?, quantidade = ? where id = ?)";
+        var query = "update produtos set nome = ?, preco = ?, quantidade = ? where id = ?";
 
         var statement = this.connection.prepareStatement(query);
         statement.setString(1, produto.getNome());
@@ -57,6 +57,9 @@ public class ProdutoRepository {
         statement.setInt(4, produto.getId());
 
         var result = statement.executeUpdate();
+
+        // Fechar conexao
+        ConnectionFactory.closeConnection(this.connection);
 
         if (result > 0) return this.bundleMessages.getString("mensagem.produto.atualizado");
         else return this.bundleMessages.getString("mensagem.produto.nao.encontrado");
@@ -76,6 +79,9 @@ public class ProdutoRepository {
         statement.setInt(1, id);
 
         var result = statement.executeUpdate();
+
+        // Fechar conexao
+        ConnectionFactory.closeConnection(this.connection);
 
         if (result > 0) return this.bundleMessages.getString("mensagem.produto.excluido");
         else return this.bundleMessages.getString("mensagem.produto.nao.encontrado");
@@ -98,6 +104,9 @@ public class ProdutoRepository {
 
             produtos.add(produto);
         }
+
+        // Fechar conexao
+        ConnectionFactory.closeConnection(this.connection);
 
         return produtos;
     }

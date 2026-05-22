@@ -43,4 +43,43 @@ public class ProdutoController {
         }
     }
 
+    public void atualizarProduto() {
+        try {
+            System.out.println("===== ATUALIZAR PRODUTO =====");
+
+            var produto = new Produto();
+
+            System.out.print("Informe o id do produto: ");
+            produto.setId(Integer.parseInt(scanner.nextLine()));
+
+            System.out.print("Digite o nome do produto: ");
+            produto.setNome(scanner.nextLine());
+
+            System.out.print("Digite o preço do produto: ");
+            produto.setPreco(Double.parseDouble(scanner.nextLine()));
+
+            System.out.print("Digite a quantidade do produto: ");
+            produto.setQuantidade(Integer.parseInt(scanner.nextLine()));
+
+            System.out.println(repository.atualizar(produto));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void excluirProduto() {
+        try {
+            System.out.println("===== ATUALIZAR PRODUTO =====");
+
+            System.out.print("Informe o id do produto: ");
+            var id = Integer.parseInt(scanner.nextLine());
+
+            System.out.println(repository.excluir(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
 }
