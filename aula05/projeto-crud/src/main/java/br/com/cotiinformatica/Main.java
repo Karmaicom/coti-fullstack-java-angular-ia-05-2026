@@ -10,6 +10,7 @@ public class Main {
         System.out.println(bundleMessages.getString("mensagem.boasvindas"));
 
         var controller = new ProdutoController();
-        controller.inserirProduto();
+        //controller.inserirProduto();
+        System.out.println(controller.consultar());
     }
 }
