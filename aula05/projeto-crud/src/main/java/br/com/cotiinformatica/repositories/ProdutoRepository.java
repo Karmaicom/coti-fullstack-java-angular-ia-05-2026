@@ -91,10 +91,10 @@ public class ProdutoRepository {
         var produtos = new ArrayList<Produto>();
         while(result.next()) {
             var produto = new Produto(
-                    result.getInt(1),
-                    result.getString(2),
-                    result.getDouble(3),
-                    result.getInt(4));
+                    result.getInt("id"),
+                    result.getString("nome"),
+                    result.getDouble("preco"),
+                    result.getInt("quantidade"));
 
             produtos.add(produto);
         }
