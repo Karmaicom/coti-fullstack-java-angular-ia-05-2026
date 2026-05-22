@@ -2,6 +2,7 @@ package br.com.cotiinformatica.factories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionFactory {
 
@@ -13,12 +14,18 @@ public class ConnectionFactory {
     private static final String password = "coti";
 
     /**
-     * Devolve uma conexao aberta com o banco de dados
+     * Devolve uma conexao aberta com o banco de dados6
      * @return
      * @throws Exception
      */
-    public static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(host, user, password);
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(host, user, password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return null;
     }
 
     /**

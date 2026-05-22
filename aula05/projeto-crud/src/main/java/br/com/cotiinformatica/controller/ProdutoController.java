@@ -3,6 +3,7 @@ package br.com.cotiinformatica.controller;
 import br.com.cotiinformatica.entities.Produto;
 import br.com.cotiinformatica.repositories.ProdutoRepository;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ProdutoController {
@@ -27,7 +28,18 @@ public class ProdutoController {
 
             System.out.println(repository.inserir(produto));
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public List<Produto> consultar() {
+        try {
+            return repository.consultar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR: " + e.getMessage());
+            return null;
         }
     }
 
