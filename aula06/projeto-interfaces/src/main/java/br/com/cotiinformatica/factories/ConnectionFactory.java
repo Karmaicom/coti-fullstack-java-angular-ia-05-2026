@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 public class ConnectionFactory implements IConnectionFactory {
 
-    private ResourceBundle bundle;
+    private ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     @Override
     public Connection getConnection() throws SQLException {

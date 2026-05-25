@@ -8,10 +8,12 @@ public class Professor {
     private String nome;
     private String telefone;
 
-    public Professor() { }
+    public Professor() {
+        this.id = UUID.randomUUID();
+    }
 
-    public Professor(UUID id, String nome, String telefone) {
-        this.id = id;
+    public Professor(String nome, String telefone) {
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.telefone = telefone;
     }

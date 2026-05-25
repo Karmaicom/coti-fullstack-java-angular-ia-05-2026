@@ -9,10 +9,12 @@ public class Aluno {
     private String matricula;
     private String email;
 
-    public Aluno() { }
+    public Aluno() {
+        this.id = UUID.randomUUID();
+    }
 
-    public Aluno(UUID id, String nome, String matricula, String email) {
-        this.id = id;
+    public Aluno(String nome, String matricula, String email) {
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
