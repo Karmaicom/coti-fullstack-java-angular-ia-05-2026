@@ -3,10 +3,10 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16
-    container_name: postgres_bd_funcionarios
+    container_name: postgres_projeto_revisao
     restart: always
     environment:
-      POSTGRES_DB: bd-funcionario
+      POSTGRES_DB: bd-projeto-revisao
       POSTGRES_USER: coti
       POSTGRES_PASSWORD: Coti@2026
     ports:
@@ -14,11 +14,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - clientes_network
+      - projeto_revisao_network
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: pgadmin_bd_funcionarios
+    container_name: pgadmin_projeto_revisao
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
@@ -28,11 +28,11 @@ services:
     depends_on:
       - postgres
     networks:
-      - clientes_network
+      - projeto_revisao_network
 
 volumes:
   postgres_data:
 
 networks:
-  clientes_network:
+  projeto_revisao_network:
     driver: bridge

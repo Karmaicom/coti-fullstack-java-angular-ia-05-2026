@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@NoArgsConstructor
 @Data
 public class Funcionario {
 
@@ -18,4 +17,28 @@ public class Funcionario {
     private LocalDate dataAdmissao;
     private TipoContrato tipoContrato;
 
+    public Funcionario() {
+        this.id = UUID.randomUUID();
+    }
+
+    public Funcionario(String nome, String matricula, String cpf, LocalDate dataAdmissao, TipoContrato tipoContrato) {
+        this.id = UUID.randomUUID();
+        this.nome = nome;
+        this.matricula = matricula;
+        this.cpf = cpf;
+        this.dataAdmissao = dataAdmissao;
+        this.tipoContrato = tipoContrato;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario { " +
+                "id: " + id +
+                ", nome: '" + nome + '\'' +
+                ", matricula: '" + matricula + '\'' +
+                ", cpf: '" + cpf + '\'' +
+                ", dataAdmissao: " + dataAdmissao +
+                ", tipoContrato: " + tipoContrato +
+                "}\n";
+    }
 }

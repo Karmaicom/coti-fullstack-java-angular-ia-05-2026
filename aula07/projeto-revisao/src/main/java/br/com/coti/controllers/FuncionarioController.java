@@ -2,12 +2,20 @@ package br.com.coti.controllers;
 
 import br.com.coti.entities.Funcionario;
 import br.com.coti.enums.TipoContrato;
+import br.com.coti.repositories.FuncionarioRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 public class FuncionarioController {
+
+    private FuncionarioRepository funcionarioRepository;
+
+    public FuncionarioController() {
+        funcionarioRepository = new FuncionarioRepository();
+    }
 
     public void cadastrarFuncionario() {
         var scanner = new Scanner(System.in);
@@ -53,6 +61,12 @@ public class FuncionarioController {
             default:
                 System.out.println("Opção inválida!");
         }
+
+        funcionarioRepository.cadastrar(funcionario);
+    }
+
+    public List<Funcionario> listaFuncionario() {
+        return funcionarioRepository.consultar();
     }
 
 }
