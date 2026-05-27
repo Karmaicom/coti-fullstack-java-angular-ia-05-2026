@@ -5,8 +5,6 @@ import br.com.coti.enums.TipoContrato;
 import br.com.coti.factories.ConnectionFactory;
 import br.com.coti.interfaces.IRepository;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

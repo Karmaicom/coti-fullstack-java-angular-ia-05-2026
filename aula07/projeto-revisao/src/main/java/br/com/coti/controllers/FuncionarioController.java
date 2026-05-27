@@ -65,7 +65,7 @@ public class FuncionarioController {
         funcionarioRepository.cadastrar(funcionario);
     }
 
-    public List<Funcionario> listaFuncionario() {
+    public List<Funcionario> listaFuncionarios() {
         return funcionarioRepository.consultar();
     }
 
