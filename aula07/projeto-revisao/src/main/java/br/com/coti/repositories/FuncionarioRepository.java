@@ -5,6 +5,7 @@ import br.com.coti.enums.TipoContrato;
 import br.com.coti.factories.ConnectionFactory;
 import br.com.coti.interfaces.IRepository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class FuncionarioRepository implements IRepository<Funcionario> {
             statement.setString(2, funcionario.getNome());
             statement.setString(3, funcionario.getMatricula());
             statement.setString(4, funcionario.getCpf());
-            statement.setDate(5, java.sql.Date.valueOf(funcionario.getDataAdmissao()));
+            statement.setDate(5, Date.valueOf(funcionario.getDataAdmissao()));
             statement.setString(6, funcionario.getTipoContrato().toString());
 
             statement.execute();
