@@ -1,0 +1,16 @@
+package br.com.cotiinformatica.apiprodutos.dtos;
+
+public record CepResponse(
+        String cep,
+        String logradouro,
+        String complemento,
+        String bairro,
+        String localidade,
+        String uf,
+        String ibge,
+        String gia,
+        String ddd,
+        String siafi,
+        Boolean erro
+) {
+}
