@@ -1,6 +1,6 @@
 package br.com.cotiinformatica.apiprodutos.dtos;
 
-public record CepResponse(
+public record CepResponseDTO(
         String cep,
         String logradouro,
         String complemento,

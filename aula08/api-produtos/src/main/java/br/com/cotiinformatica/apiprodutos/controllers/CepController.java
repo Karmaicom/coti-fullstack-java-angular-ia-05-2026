@@ -1,6 +1,6 @@
 package br.com.cotiinformatica.apiprodutos.controllers;
 
-import br.com.cotiinformatica.apiprodutos.dtos.CepResponse;
+import br.com.cotiinformatica.apiprodutos.dtos.CepResponseDTO;
 import br.com.cotiinformatica.apiprodutos.services.CepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class CepController {
     private CepService cepRestClient;
 
     @GetMapping("/{cep}")
-    public CepResponse consultar(@PathVariable String cep) {
+    public CepResponseDTO consultar(@PathVariable String cep) {
         return cepRestClient.consultarCep(cep);
     }
 
