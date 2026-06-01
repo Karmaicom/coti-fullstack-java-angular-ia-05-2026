@@ -20,6 +20,11 @@ public class ProdutoController {
         this.repository = repository;
     }
 
+    /**
+     * Metodo End point para consultar produto por nome
+     * @param nome
+     * @return
+     */
     @GetMapping("/listar/{nome}")
     public List<ProdutoResponseDTO> obterPorNome(@PathVariable String nome) {
         try {
@@ -31,6 +36,11 @@ public class ProdutoController {
         }
     }
 
+    /**
+     * Metodo para cadastrar um produto no banco de dados
+     * @param produtoRequest
+     * @return
+     */
     @PostMapping("/criar")
     public String criar(@RequestBody ProdutoRequestDTO produtoRequest) {
         try {
