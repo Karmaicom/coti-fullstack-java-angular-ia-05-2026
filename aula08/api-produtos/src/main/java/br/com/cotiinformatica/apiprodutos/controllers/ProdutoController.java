@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/api/v1/produtos")
 public class ProdutoController {
 
+    @Autowired
     private IProdutoRepository repository;
 
     @Autowired
@@ -28,7 +29,23 @@ public class ProdutoController {
     @GetMapping("/listar/{nome}")
     public List<ProdutoResponseDTO> obterPorNome(@PathVariable String nome) {
         try {
-            return repository.obterPorNome(nome);
+            var produto = repository.obterPorNome(nome);
+
+            //Executando e capturando a lista de produtos no banco
+            var lista = repository.obterPorNome(nome);
+
+            //Copiando os registros obtidos do banco para uma lista de ProdutoResponseDto
+            return lista.stream()
+                    .map(item -> new ProdutoResponseDTO(
+                            item.getId(),
+                            item.getNome(),
+                            item.getDescricao(),
+                            item.getPreco(),
+                            item.getQuantidade(),
+                            item.getAtivo(),
+                            item.getPreco() * item.getQuantidade()
+                    )).toList();
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

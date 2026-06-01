@@ -45,9 +45,9 @@ public class ProdutoRepository implements IProdutoRepository {
      * @return
      * @throws Exception
      */
-    public List<ProdutoResponseDTO> obterPorNome(String nome) throws Exception {
+    public List<Produto> obterPorNome(String nome) throws Exception {
         var query = """
-                    select nome, descricao, preco, quantidade, data_cadastro, data_atualizacao, data_exclusao, ativo
+                    select id, nome, descricao, preco, quantidade, data_cadastro, data_atualizacao, data_exclusao, ativo
                     from produto p 
                     where p.nome ilike ?
                     order by nome
@@ -59,19 +59,20 @@ public class ProdutoRepository implements IProdutoRepository {
 
         var  resultado = statement.executeQuery();
 
-        var lista = new ArrayList<ProdutoResponseDTO>();
+        var lista = new ArrayList<Produto>();
 
         while (resultado.next()) {
-            var produto = new ProdutoResponseDTO(
-                    resultado.getString(1),
-                    resultado.getString(2),
-                    resultado.getDouble(3),
-                    resultado.getInt(4),
-                    resultado.getObject(5, LocalDateTime.class),
-                    resultado.getObject(6, LocalDateTime.class),
-                    resultado.getObject(7, LocalDateTime.class),
-                    resultado.getBoolean(8)
-            );
+            var produto = new Produto();
+            produto.setId(resultado.getInt(1));
+            produto.setNome(resultado.getString(2));
+            produto.setDescricao(resultado.getString(3));
+            produto.setPreco(resultado.getDouble(4));
+            produto.setQuantidade(resultado.getInt(5));
+            produto.setDataCadastro(resultado.getObject(6, LocalDateTime.class));
+            produto.setDataAtualizacao(resultado.getObject(7, LocalDateTime.class));
+            produto.setDataExclusao(resultado.getObject(8, LocalDateTime.class));
+            produto.setAtivo(resultado.getBoolean(9));
+
             lista.add(produto);
         }
         return lista;
