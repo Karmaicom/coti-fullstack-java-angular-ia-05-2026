@@ -15,6 +15,7 @@ public class ConnectionFactory {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
+            return null;
         }
     }
 
