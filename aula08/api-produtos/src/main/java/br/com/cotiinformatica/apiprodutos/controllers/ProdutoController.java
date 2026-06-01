@@ -1,11 +1,13 @@
 package br.com.cotiinformatica.apiprodutos.controllers;
 
-import br.com.cotiinformatica.apiprodutos.dtos.ProdutoRequest;
+import br.com.cotiinformatica.apiprodutos.dtos.ProdutoRequestDTO;
+import br.com.cotiinformatica.apiprodutos.dtos.ProdutoResponseDTO;
 import br.com.cotiinformatica.apiprodutos.entities.Produto;
 import br.com.cotiinformatica.apiprodutos.intefaces.IProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/produtos")
@@ -18,13 +20,19 @@ public class ProdutoController {
         this.repository = repository;
     }
 
-    @GetMapping("/listar")
-    public String listar(){
-        return "Listagem de produtos obtida com sucesso!";
+    @GetMapping("/listar/{nome}")
+    public List<ProdutoResponseDTO> obterPorNome(@PathVariable String nome) {
+        try {
+            return repository.obterPorNome(nome);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @PostMapping("/criar")
-    public String criar(@RequestBody ProdutoRequest produtoRequest) {
+    public String criar(@RequestBody ProdutoRequestDTO produtoRequest) {
         try {
             var produto = new Produto();
             produto.setNome(produtoRequest.nome());
@@ -34,23 +42,12 @@ public class ProdutoController {
 
             repository.inserirProduto(produto);
 
-            return "Produto criado com sucesso!";
+            return "Produto cadastrado com sucesso!";
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: " + e.getMessage());
             return "Erro ao tentar inserir produto!";
         }
-
-    }
-
-    @PutMapping("/alterar")
-    public String alterar() {
-        return "Produto alterado com sucesso!";
-    }
-
-    @DeleteMapping("/excluir")
-    public String excluir(String id) {
-        return "Produto excluído com sucesso!";
     }
 
 }

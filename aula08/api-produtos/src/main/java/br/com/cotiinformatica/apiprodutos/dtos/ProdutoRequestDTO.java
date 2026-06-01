@@ -1,6 +1,6 @@
 package br.com.cotiinformatica.apiprodutos.dtos;
 
-public record ProdutoRequest(
+public record ProdutoRequestDTO(
         String nome,
         String descricao,
         Double preco,
