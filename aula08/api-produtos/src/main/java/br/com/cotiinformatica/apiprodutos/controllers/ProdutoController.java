@@ -26,8 +26,8 @@ public class ProdutoController {
      * @param nome
      * @return
      */
-    @GetMapping("/listar/{nome}")
-    public List<ProdutoResponseDTO> obterPorNome(@PathVariable String nome) {
+    @GetMapping("/listar")
+    public List<ProdutoResponseDTO> obterPorNome(String nome) {
         try {
             var produto = repository.obterPorNome(nome);
 
