@@ -1,0 +1,13 @@
+<div>
+  <h4>Consulta de Produtos</h4>
+  <p>Pesquise os produtos através do nome:</p>
+
+  <div>
+    <input type="text" placeholder="Digita o nome do produto..." [(ngModel)]="nomeProduto" />
+    <button (click)="pesquisarProdutos()">
+      Pesquisar
+    </button>
+  </div>
+</div>
+
+<router-outlet/>
