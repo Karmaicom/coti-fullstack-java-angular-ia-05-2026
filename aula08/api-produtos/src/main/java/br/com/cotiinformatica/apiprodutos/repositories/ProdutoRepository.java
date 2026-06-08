@@ -49,7 +49,7 @@ public class ProdutoRepository implements IProdutoRepository {
         var query = """
                     select id, nome, descricao, preco, quantidade, data_cadastro, data_atualizacao, data_exclusao, ativo
                     from produto p 
-                    where p.nome ilike ?
+                    where ativo = 1 and p.nome ilike ?
                     order by nome
                 """;
 
@@ -75,9 +75,18 @@ public class ProdutoRepository implements IProdutoRepository {
 
             lista.add(produto);
         }
+
+        conenction.close();
+
         return lista;
     }
 
+    /**
+     * Metodo para atualizar as informações de um produto
+     * @param produto
+     * @return
+     * @throws Exception
+     */
     public boolean atualizar(Produto produto) throws Exception {
         var query = """
                     update produto set 
@@ -99,6 +108,58 @@ public class ProdutoRepository implements IProdutoRepository {
 
         var updateResult = statement.executeUpdate();
 
+        conenction.close();
+
         return updateResult > 0; // true ou false
+    }
+
+    /**
+     * Metodo para deletar/inativar um produto
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public boolean excluir(Integer id) throws Exception {
+        var query = """
+            update produto set ativo = 0, data_exclusao = now() where id = ?
+        """;
+
+        var conenction = ConnectionFactory.getConnection();
+        var statement = conenction.prepareStatement(query);
+        statement.setInt(1, id);
+
+        var deleteResult = statement.executeUpdate();
+
+        conenction.close();
+
+        return deleteResult > 0;
+    }
+
+    /**
+     * Metodo para retornar um produto caso seja encontrado no banco de dados
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Produto buscarPorId(Integer id) throws Exception {
+        var query = """
+                select id, nome, descricao, preco, quantidade, 
+                       data_cadastro, data_atualizacao, data_exclusao, ativo
+                from produto where ativo = 1 and id = ?
+        """;
+
+        var conenction = ConnectionFactory.getConnection();
+        var statement = conenction.prepareStatement(query);
+        statement.setInt(1, id);
+
+        var resultado = statement.executeQuery();
+
+        var produto = new Produto();
+
+        if (resultado.first()) {
+            produto.setId(resultado.getInt(1));
+        }
+
+        return produto;
     }
 }
