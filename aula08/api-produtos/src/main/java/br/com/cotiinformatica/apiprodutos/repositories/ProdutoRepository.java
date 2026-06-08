@@ -77,4 +77,28 @@ public class ProdutoRepository implements IProdutoRepository {
         }
         return lista;
     }
+
+    public boolean atualizar(Produto produto) throws Exception {
+        var query = """
+                    update produto set 
+                            nome = ?, 
+                            descricao = ?, 
+                            preco = ?, 
+                            quantidade = ?, 
+                            data_atualizacao = now(),
+                    where id = ?
+                """;
+
+        var conenction = ConnectionFactory.getConnection();
+        var statement = conenction.prepareStatement(query);
+        statement.setString(1, produto.getNome());
+        statement.setString(2, produto.getDescricao());
+        statement.setDouble(3, produto.getPreco());
+        statement.setInt(4, produto.getQuantidade());
+        statement.setInt(5, produto.getId());
+
+        var updateResult = statement.executeUpdate();
+
+        return updateResult > 0; // true ou false
+    }
 }
