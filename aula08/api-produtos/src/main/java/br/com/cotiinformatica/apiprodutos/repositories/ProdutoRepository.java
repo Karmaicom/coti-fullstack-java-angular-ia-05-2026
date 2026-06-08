@@ -87,15 +87,15 @@ public class ProdutoRepository implements IProdutoRepository {
      * @return
      * @throws Exception
      */
-    public boolean atualizar(Produto produto) throws Exception {
+    public boolean atualizar(Integer id, Produto produto) throws Exception {
         var query = """
                     update produto set 
-                            nome = ?, 
-                            descricao = ?, 
-                            preco = ?, 
-                            quantidade = ?, 
+                            nome = ?,
+                            descricao = ?,
+                            preco = ?,
+                            quantidade = ?,
                             data_atualizacao = now(),
-                    where id = ?
+                    where ativo = 1 and id = ?
                 """;
 
         var conenction = ConnectionFactory.getConnection();
@@ -104,7 +104,7 @@ public class ProdutoRepository implements IProdutoRepository {
         statement.setString(2, produto.getDescricao());
         statement.setDouble(3, produto.getPreco());
         statement.setInt(4, produto.getQuantidade());
-        statement.setInt(5, produto.getId());
+        statement.setInt(5, id);
 
         var updateResult = statement.executeUpdate();
 
