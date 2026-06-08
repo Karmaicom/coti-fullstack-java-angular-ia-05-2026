@@ -154,11 +154,22 @@ public class ProdutoRepository implements IProdutoRepository {
 
         var resultado = statement.executeQuery();
 
-        var produto = new Produto();
+        Produto produto = null;
 
-        if (resultado.first()) {
+        if (resultado.next()) {
+            produto = new Produto();
             produto.setId(resultado.getInt(1));
+            produto.setNome(resultado.getString(2));
+            produto.setDescricao(resultado.getString(3));
+            produto.setPreco(resultado.getDouble(4));
+            produto.setQuantidade(resultado.getInt(5));
+            produto.setDataCadastro(resultado.getObject(6, LocalDateTime.class));
+            produto.setDataAtualizacao(resultado.getObject(7, LocalDateTime.class));
+            produto.setDataExclusao(resultado.getObject(8, LocalDateTime.class));
+            produto.setAtivo(resultado.getBoolean(9));
         }
+
+        statement.close();
 
         return produto;
     }
