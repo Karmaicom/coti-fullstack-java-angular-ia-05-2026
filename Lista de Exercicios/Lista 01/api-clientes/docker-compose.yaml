@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_apiclientes_exerc01
+    restart: always
+    environment:
+      POSTGRES_DB: bd-api-clientes-exerc01
+      POSTGRES_USER: coti
+      POSTGRES_PASSWORD: Coti@2026
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data_apiclientes_exerc01:/var/lib/postgresql/data
+    networks:
+      - api_clientes_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_apiclientes_exerc01
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: Coti@2026
+    ports:
+      - "5054:80"
+    volumes:
+      - pgadmin_data_apiclientes_exerc01:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - api_clientes_network
+
+volumes:
+  postgres_data_apiclientes_exerc01:
+  pgadmin_data_apiclientes_exerc01:
+
+networks:
+  api_clientes_network:
+    driver: bridge
