@@ -1,0 +1,112 @@
+1. Explique o que é uma API REST e qual é a função do Spring Boot na criação desse tipo de aplicação.
+
+RESPOSTA: API REST é um modelo ou uma arquitetura que define os padrões e as formas para fazermos uma integração entre sistemas,
+por meio de requisições usando o protocolo HTTP.
+O Spring Boot é o framework que possue todo um arcabolso que nos facilira a desenvolver essa integração, oferecendo 
+configuração simplificada, produtividade e recursos prontos para desenvolvimento.
+
+2. Explique a finalidade dos métodos HTTP GET, POST, PUT e DELETE em uma API de clientes.
+
+RESPOSTA: Os métodos http ou também chamados como verbos http, são utilizados para pafronizar a forma de comunicação utilizando o protocolo http.
+Ou seja, são usados para realizar operações que vão manipular de alguma forma o dados ou os dados.
+
+Exemplo:
+GET: Usado para efetuar consultas no banco de dados, ou seja, buscar dados relevantes a regra de negócio ou funcionalidade.
+Usando o verbo http [GET localhost:8080/api/v1/clientes] => essa requisição retornará uma lista contendo os clientes encontrados no banco de dados.
+
+POST: Usado para criar, cadastrar ou inserir um registro no banco de dados. Ou seja, fazer um insert no database.
+Usando o verbo http [POST localhost:8080/api/v1/clientes] + RequestBody contendo o json com os dados do record ClienteRequestDTO => essa requisição irá
+inserir um novo cliente no banco de dados.
+
+PUT: Usado para atualizar ou alterar um registro no banco de dados. Ou seja, fazer um update no database.
+Usando o verbo http [PUT localhost:8080/api/v1/clientes/{id}] + RequestBody contendo o json com os dados do record ClienteRequestDTO => essa requisição irá
+atualizar o(s) dado(s) de um cliente específico(referente ao id informado) no banco de dados.
+
+DELETE: Usado para excluir ou inativar um registro no banco de dados. Ou seja, fazer um delete ou um update no database, dependendo da regra de negõcio.
+Usando o verbo http [DELETE localhost:8080/api/v1/clientes/{id}] => essa requisição irá atualizar ou deletar um cliente específico(referente ao id informado) no banco de dados.
+
+3. Explique a diferença entre Controller, Repository, Entity e DTO em uma aplicação Spring Boot.
+Controller: Tem a responsabilidade de receber as requisições http e retornar respostas, que de acordo com o padrão REST, devem ser respostas contendo um código http adequado.
+Exemplo de um método implementado em uma classe Controller:
+@GetMapping("/clientes")
+public List<ClienteResponseDTO> listar() {
+    return clienteRepository.listar();
+}
+
+Repository: Tem a responsabilidade de interagir com o banco de dados, ou seja: exectuar operações no banco de dados como create (insert), read (select), update ou delete.
+Exemplo implemetado com o uso do módulo Spring Data JPA:
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+}
+
+Entity: Uma classe de entidade é criada para representar uma tabela do banco de dados, assim como seus campos(atributos).
+Exemplo utilizando também com anotações do Spring Framework:
+@Entity
+public class Cliente {
+    @Id
+    private Long id;
+
+    @Column(name = "nome")
+    private String nome;
+}
+
+DTO: São classes ou records criados para transferir dados entre classes e camadas de forma segura, evitando o uso de classes que representam exatamente uma 
+tabela do banco de dados(entities).
+Isso protege a aplicação contra erros, por exemplo, quando há uam atualização de campos na tabela do banco de dados, fazendo com que o record ou classe 
+criadas e usadas nos controllers, por exemplo,
+não sejam afetadas.
+Exemplo de dto criado como record:
+public record ClienteDTO(Long id, String nome) {
+}
+
+RESUMO:
+Controller ------  Recebe requisições e retorna respostas
+Repository ------  Acessa o banco de dados
+Entity ----------  Representa a tabela do banco
+DTO -------------  Transporta dados entre as camadas
+
+4. Explique para que servem o Swagger, o PostgreSQL, o Docker e o PgAdmin no projeto.
+
+=> Swagger é uma ferramenta usada para documentar e testar APIs REST. Ele gera uma interface web onde é possível visualizar os endpoints, enviar requisições e 
+verificar as respostas sem precisar usar ferramentas externas.
+Exemplo de url para acessar o swagger via browser: http://localhost:8080/swagger-ui.html
+
+=> PostgreSQL é o banco de dados da aplicação. Poatgres é um banco de dados relacional, onde contem tabelas e campos físicos e controlados.
+Ele armazena informações ou dados em tabelas como clientes, produtos, pedidos e demais tabelas e dados como podemos persistir no bacno de dados.
+
+=> Docker é utilizado para criar e executar a aplicação e seus serviços em containers, garantindo que funcionem da mesma forma em qualquer ambiente.
+É necessário criar um arquivo de configuração chamado docker-compose.yaml com todas informações de quais serviços serão usados/criados, para que as respectivas imagens
+destes serviços sejam baixadas e também contem as configurações internas dos containers de cada serviço.
+Também é possível personalização a criação dos volumes.
+Também é possível configurar a rede interna para comunicação entre os containers, caso haja uma determinada dependência entre os serviços.
+
+Como curiosidade, segue o comando pra executar o o arquivo docker-compose.yaml:
+docker-compose up -d
+
+=> PgAdmin é uma ferramenta gráfica para administrar o PostgreSQL. Com ele é possível criar bancos de dados, executar consultas SQL e visualizar tabelas sem usar o terminal.
+
+Resumo
+Swagger -----------	Documentar e testar a API
+PostgreSQL --------	Armazenar os dados da aplicação
+Docker ------------	Executar a aplicação em containers
+PgAdmin -----------	Administrar o banco PostgreSQL visualmente
+
+
+5. Explique o que é CORS e por que ele precisa ser configurado quando o Angular consome uma API Spring Boot.
+
+CORS (Cross-Origin Resource Sharing) é um mecanismo de segurança dos navegadores que controla quais aplicações podem acessar recursos de outro domínio, porta ou protocolo.
+
+No caso do Angular e do Spring Boot, geralmente o Angular roda em uma porta diferente da API. Por exemplo:
+
+Angular:    http://localhost:4200
+Spring Boot: http://localhost:8080
+
+Como as origens são diferentes, o navegador bloqueia a requisição por segurança se o CORS não estiver configurado.
+
+Para permitir que o frontend Angular consuma os endpoints da API Spring Boot sem que o navegador bloqueie as requisições.
+
+Exemplo de classe com as anotações necessárias para configurar no Spring Boot e assim liberar as requisições http para uma determinada url de origem:
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/clientes")
+public class ClienteController {
+}
