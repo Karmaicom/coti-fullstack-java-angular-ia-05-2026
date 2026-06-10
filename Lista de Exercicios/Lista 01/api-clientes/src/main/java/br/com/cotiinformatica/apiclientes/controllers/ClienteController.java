@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -44,6 +42,12 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Metodo para atualizar os dados de um cliente
+     * @param id
+     * @param dto
+     * @return
+     */
     @PutMapping("{id}")
     public ResponseEntity<?> atualizar(@PathVariable UUID id, @RequestBody ClienteRequestDTO dto) {
         try {
@@ -66,6 +70,11 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Metodo para remover/inativar um cliente no banco de dados
+     * @param id
+     * @return
+     */
     @DeleteMapping("{id}")
     public ResponseEntity<?> remover(@PathVariable UUID id) {
         try {
@@ -82,6 +91,11 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Metodo para ativar um cliente no banco de dados
+     * @param id
+     * @return
+     */
     @PutMapping("/ativar/{id}")
     public ResponseEntity<?> ativar(@PathVariable UUID id) {
         try {
@@ -98,6 +112,10 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Metodo para listar todos os clientes ativos no banco de dados
+     * @return
+     */
     @GetMapping
     public ResponseEntity<?> listar() {
         try {
@@ -109,6 +127,11 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Metodo para buscar um cliente filtrando atraves do id do cliente
+     * @param id
+     * @return
+     */
     @GetMapping("/buscarPorId")
     public ResponseEntity<?> buscarPorId(@RequestParam UUID id) {
         try {
