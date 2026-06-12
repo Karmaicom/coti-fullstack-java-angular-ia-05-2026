@@ -31,7 +31,7 @@
       <input type="text" placeholder="Descrição" [(ngModel)]="produtoSelecionado().descricao"/>
       <input type="text" placeholder="Preço" [(ngModel)]="produtoSelecionado().preco"/>
       <input type="text" placeholder="Quantidade" [(ngModel)]="produtoSelecionado().quantidade"/>
-      <button>Salvar</button>
+      <button class="botao_novoproduto" (click)="cadastrarProduto()">Salvar</button>
       <button (click)="cancelarEdicao()">Cancelar</button>
     </div>
   }

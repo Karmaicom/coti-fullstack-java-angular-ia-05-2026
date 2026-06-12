@@ -94,4 +94,19 @@ export class App {
         total: ''
       });
     }
+
+    //Função para realizar o cadastro do produto
+    cadastrarProduto() {
+      this.httpClient
+      .post(`${this.apiUrl}/criar`, this.produtoSelecionado(), { responseType : 'text'})
+        .subscribe((response) => {
+          this.mensagem.set(response);
+          this.cancelarEdicao();
+        });
+
+        //verificar se há uma consulta de produtos exibida na tela
+        if(this.produtos().length > 0) {
+          this.pesquisarProdutos(); //executando a consulta
+        }
+    }
 }
