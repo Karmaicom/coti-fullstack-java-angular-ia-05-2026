@@ -254,3 +254,32 @@ tfoot td {
     text-align: left;
   }
 }
+
+
+.botao_novoproduto {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 14px 22px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.22);
+}
+
+.botao_novoproduto:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+}
+
+.botao_novoproduto:active {
+  transform: translateY(0);
+}

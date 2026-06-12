@@ -18,7 +18,23 @@
     <button (click)="pesquisarProdutos()">
       Pesquisar
     </button>
+    <button class="botao_novoproduto" (click)="novoProduto()">
+      Novo produto
+    </button>    
   </div>
+
+  @if(exibirFormulario()) {
+    <br/><br/>
+    <h4>Cadastrar produto</h4>
+    <div>
+      <input type="text" placeholder="Nome do produto" [(ngModel)]="produtoSelecionado().nome"/>
+      <input type="text" placeholder="Descrição" [(ngModel)]="produtoSelecionado().descricao"/>
+      <input type="text" placeholder="Preço" [(ngModel)]="produtoSelecionado().preco"/>
+      <input type="text" placeholder="Quantidade" [(ngModel)]="produtoSelecionado().quantidade"/>
+      <button>Salvar</button>
+      <button (click)="cancelarEdicao()">Cancelar</button>
+    </div>
+  }
 
   @if(produtos().length > 0) {
     <table>

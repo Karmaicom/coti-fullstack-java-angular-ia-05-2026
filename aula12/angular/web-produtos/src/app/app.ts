@@ -3,6 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+//Criando uma estrutura de dados para representar um produto
+interface Produto {
+  id: number,
+  nome: string,
+  descricao: string,
+  preco: string,
+  quantidade: string,
+  total: string
+}
+
 @Component({
   selector: 'app-root',
   imports: [
@@ -29,6 +39,20 @@ export class App {
     //Atributo para capturar o nome do produto
     nomeProduto: string = '';
 
+    //Atributo para guardar os dados de um produto
+    produtoSelecionado = signal<Produto>({
+      id: 0, //valor padrão
+      nome: '', //valor padrão
+      descricao: '', //valor padrão
+      preco: '', //valor padrão
+      quantidade: '', //valor padrão
+      total: '' //valor padrão
+    });
+
+    //Atributo para guardar uma flag que indique quando o formulário
+    //de cadastro ou edição do produto será exibido
+    exibirFormulario = signal<boolean>(false);
+
     //Função para ser executada quando o botão de pesquisa for clicado
     pesquisarProdutos() {
         //Fazendo uma requisição HTTP GET para consultar os produtos na API
@@ -50,5 +74,24 @@ export class App {
           this.mensagem.set(response);
         })
       }
+    }
+
+    //Função para exibir o formulário de cadastro de produto
+    novoProduto() {
+      this.exibirFormulario.set(true);
+      this.mensagem.set('');
+    }
+
+    //Funcao para ocultar formulario e limpar os valores dos campos
+    cancelarEdicao() {
+      this.exibirFormulario.set(false);
+      this.produtoSelecionado.set({
+        id: 0,
+        nome: '',
+        descricao: '',
+        preco: '',
+        quantidade: '',
+        total: ''
+      });
     }
 }
