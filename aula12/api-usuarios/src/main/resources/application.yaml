@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: api-usuarios
+
+datasource:
+  mysql:
+    url: jdbc:postgresql://localhost:5435/bd-projeto-apiusuarios
+    username: coti
+    password: Coti@2026
