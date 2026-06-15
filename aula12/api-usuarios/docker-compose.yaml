@@ -1,38 +1,39 @@
 services:
-  postgres:
-    image: postgres:16
-    container_name: postgres_apiusuarios12
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_apiusuarios12
     restart: always
     environment:
-      POSTGRES_DB: bd-api-usuarios
-      POSTGRES_USER: coti
-      POSTGRES_PASSWORD: Coti@2026
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bd_api_usuarios
+      MYSQL_USER: coti
+      MYSQL_PASSWORD: Coti@2026
     ports:
-      - "5435:5432"
+      - "3309:3306"
     volumes:
-      - postgres_data_apiusuarios12:/var/lib/postgresql/data
+      - mysql_data_apiusuarios12:/var/lib/mysql
     networks:
       - api_usuarios12_network
 
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin_apiusuarios12
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_apiusuarios12
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: Coti@2026
+      PMA_USER: coti
+      PMA_PASSWORD: Coti@2026
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "5052:80"
-    volumes:
-      - pgadmin_data_apiusuarios12:/var/lib/pgadmin
     depends_on:
-      - postgres
+      - mysql
     networks:
       - api_usuarios12_network
 
 volumes:
-  postgres_data_apiusuarios12:
-  pgadmin_data_apiusuarios12:
+  mysql_data_apiusuarios12:
 
 networks:
   api_usuarios12_network:
