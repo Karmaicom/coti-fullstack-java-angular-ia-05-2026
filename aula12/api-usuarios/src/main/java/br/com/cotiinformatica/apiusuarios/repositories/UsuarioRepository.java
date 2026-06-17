@@ -105,4 +105,30 @@ public class UsuarioRepository {
         }
     }
 
+    public Usuario obterPorEmail(String email) throws Exception {
+        try (var connection =  connectionFactory.getConnection()) {
+            var statement = connection.prepareStatement("""
+                select id, nome, email, senha, perfil_id
+                from usuarios 
+                where email = ?;
+            """);
+            statement.setString(1, email);
+
+            var result = statement.executeQuery();
+
+            Usuario usuarioFounded =  null;
+
+            if(result.next()) {
+                usuarioFounded = new Usuario();
+                usuarioFounded.setId(result.getInt("id"));
+                usuarioFounded.setNome(result.getString("nome"));
+                usuarioFounded.setEmail(result.getString("email"));
+                usuarioFounded.setSenha(result.getString("senha"));
+                usuarioFounded.setPerfilId(result.getInt("perfil_id"));
+            }
+
+            return usuarioFounded;
+        }
+    }
+
 }
