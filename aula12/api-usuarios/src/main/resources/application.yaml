@@ -1,9 +1,8 @@
 spring:
   application:
     name: api-usuarios
+  profiles:
+    active: developer
 
-datasource:
-  mysql:
-    url: jdbc:postgresql://localhost:5435/bd-projeto-apiusuarios
-    username: coti
-    password: Coti@2026
+server:
+  port: 8081

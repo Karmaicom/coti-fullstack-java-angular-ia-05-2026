@@ -9,17 +9,17 @@ import java.sql.DriverManager;
 @Component
 public class ConnectionFactory {
 
-    @Value("${datasource.mysql.url}")
+    @Value("${datasource.url}")
     private String url;
 
-    @Value("${datasource.mysql.user}")
+    @Value("${datasource.user}")
     private String user;
 
-    @Value("${datasource.mysql.password}")
-    private String password;
+    @Value("${datasource.pass}")
+    private String pass;
 
     public Connection getConnection() throws Exception {
-        return DriverManager.getConnection(url, user, password);
+        return DriverManager.getConnection(url, user, pass);
     }
 
 }

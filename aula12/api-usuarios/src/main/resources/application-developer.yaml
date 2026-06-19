@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: api-usuarios
+
+datasource:
+  url: jdbc:mysql://localhost:3309/bd_api_usuarios?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+  user: coti
+  pass: Coti@2026
+  driver-class-name: com.mysql.cj.jdbc.Driver
