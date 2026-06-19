@@ -8,7 +8,7 @@ public class EmailJaCadastradoException extends RuntimeException {
      */
     @Override
     public String getMessage() {
-        return "O email informa já está cadastrado. Por favor, informe outro email!";
+        return "O email informado já está cadastrado. Por favor, informe outro email!";
     }
 
 }

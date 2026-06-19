@@ -3,6 +3,8 @@ package br.com.cotiinformatica.apiusuarios.services;
 import br.com.cotiinformatica.apiusuarios.dtos.CriarUsuarioRequest;
 import br.com.cotiinformatica.apiusuarios.dtos.CriarUsuarioResponse;
 import br.com.cotiinformatica.apiusuarios.entities.Usuario;
+import br.com.cotiinformatica.apiusuarios.exceptions.EmailJaCadastradoException;
+import br.com.cotiinformatica.apiusuarios.exceptions.SenhaInvalidaException;
 import br.com.cotiinformatica.apiusuarios.repositories.PerfilRepository;
 import br.com.cotiinformatica.apiusuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,16 @@ public class UsuarioService {
     //de usuário no sistema (novo usuário)
     public CriarUsuarioResponse criarUsuario(CriarUsuarioRequest request) throws Exception {
 
+        //Codigo de seguranca para verificar se a senha é forte
+        if(!validarSenhaForte(request.senha())) {
+            throw new SenhaInvalidaException();
+        }
+
+        //Codigo de seguranca para verificar se o email já está cadastrado
+        if(usuarioRepository.obterPorEmail(request.email()) != null) {
+            throw new EmailJaCadastradoException();
+        }
+        
         //Capturar dados do usuario
         var usuario = new Usuario();
         usuario.setNome(request.nome());
@@ -61,5 +73,11 @@ public class UsuarioService {
         return hexString.toString();
     }
 
+    //Validar padrao de senha forte
+    //
+    private boolean validarSenhaForte(String senha) throws Exception {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d]).{8,}$";
+        return senha.matches(regex);
+    }
 
 }
