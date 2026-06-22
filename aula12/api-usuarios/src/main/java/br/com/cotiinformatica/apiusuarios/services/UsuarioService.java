@@ -1,5 +1,6 @@
 package br.com.cotiinformatica.apiusuarios.services;
 
+import br.com.cotiinformatica.apiusuarios.components.JwtComponent;
 import br.com.cotiinformatica.apiusuarios.dtos.AutenticarUsuarioRequest;
 import br.com.cotiinformatica.apiusuarios.dtos.AutenticarUsuarioResponse;
 import br.com.cotiinformatica.apiusuarios.dtos.CriarUsuarioRequest;
@@ -26,6 +27,9 @@ public class UsuarioService {
     @Autowired //inicialização automática
     private PerfilRepository perfilRepository;
 
+    @Autowired
+    private JwtComponent jwtComponent;
+
     // Metodo para implementar fluxo de autenticacao de usuario no sistema (login do usuario)
     public AutenticarUsuarioResponse autenticarUsuario(AutenticarUsuarioRequest request) throws Exception {
 
@@ -44,7 +48,7 @@ public class UsuarioService {
                     usuario.getEmail(),
                     perfil.getNome(),
                     LocalDateTime.now(),
-                    "Seu token jwt ainda será gerado"
+                    jwtComponent.getAccessToken(usuario.getEmail(), perfil.getNome())
             );
         }
 
