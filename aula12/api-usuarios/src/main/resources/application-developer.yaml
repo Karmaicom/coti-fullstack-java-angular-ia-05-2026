@@ -7,3 +7,7 @@ datasource:
   user: coti
   pass: Coti@2026
   driver-class-name: com.mysql.cj.jdbc.Driver
+
+jwt:
+  secret: 2c3370b8-ff54-4897-8234-e4c1c3103151
+  expiration: 3600000
