@@ -18,7 +18,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("criar")
-    public ResponseEntity<?>  criarUsuario(@RequestBody CriarUsuarioRequest request) {
+    public ResponseEntity<?> criarUsuario(@RequestBody CriarUsuarioRequest request) {
         try {
             var response = usuarioService.criarUsuario(request);
 
