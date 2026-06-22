@@ -1,7 +1,9 @@
 package br.com.cotiinformatica.apiusuarios.components;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +42,29 @@ public class JwtComponent {
                 .setExpiration(getExpirationDate()) //Date e hora da expiração do Token
                 .signWith(SignatureAlgorithm.HS256, jwtSecret) //Assinatura do Token utilizando o algoritmo e a chave secreta
                 .compact(); //Gerando o Token
+    }
+
+    /**
+     * Metodo para ler o email do usuário contido no TOKEN JWT
+     * @param http
+     * @return Email do usuario, encontrado no token
+     * @throws Exception
+     */
+    public String getEmailUsuario(HttpServletRequest http) throws Exception {
+        String authorization = http.getHeader("Authorization");
+
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            return null;
+        }
+
+        String token = authorization.substring(7);
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 
 }
