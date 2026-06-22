@@ -1,10 +1,7 @@
 package br.com.cotiinformatica.apiusuarios.services;
 
 import br.com.cotiinformatica.apiusuarios.components.JwtComponent;
-import br.com.cotiinformatica.apiusuarios.dtos.AutenticarUsuarioRequest;
-import br.com.cotiinformatica.apiusuarios.dtos.AutenticarUsuarioResponse;
-import br.com.cotiinformatica.apiusuarios.dtos.CriarUsuarioRequest;
-import br.com.cotiinformatica.apiusuarios.dtos.CriarUsuarioResponse;
+import br.com.cotiinformatica.apiusuarios.dtos.*;
 import br.com.cotiinformatica.apiusuarios.entities.Usuario;
 import br.com.cotiinformatica.apiusuarios.exceptions.AcessoNegadoException;
 import br.com.cotiinformatica.apiusuarios.exceptions.EmailJaCadastradoException;
@@ -85,6 +82,27 @@ public class UsuarioService {
         //Retornar os dados da resposta
         return new CriarUsuarioResponse(
                 "Usuário criado com sucesso",
+                usuario.getNome(),
+                usuario.getEmail(),
+                perfil.getNome()
+        );
+    }
+
+    /**
+     * Metodo para retornar os dados do usuario
+     * @param email
+     */
+    public DadosUsuarioResponse obterDadosUsuario(String email) throws Exception {
+
+        //Buscar os dados do usuario no banco de dados atraves do email
+        var usuario = usuarioRepository.obterPorEmail(email);
+
+        //Buscar o perfil do usuario no banco de dados
+        var perfil = perfilRepository.buscarPorId(usuario.getPerfilId());
+
+        //Retornar os dados do usuario
+        return new DadosUsuarioResponse(
+                usuario.getId(),
                 usuario.getNome(),
                 usuario.getEmail(),
                 perfil.getNome()

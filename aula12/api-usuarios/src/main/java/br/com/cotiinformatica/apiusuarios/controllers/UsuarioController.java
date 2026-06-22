@@ -52,4 +52,16 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("obter-dados")
+    public ResponseEntity<?> obterDados() {
+        try {
+
+            //HTTP 200 (OK)
+            return ResponseEntity.status(200).body("OK!");
+        } catch (Exception e) {
+            // HTTP 500 (INTERNAL SERVER ERROR)
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
 }
