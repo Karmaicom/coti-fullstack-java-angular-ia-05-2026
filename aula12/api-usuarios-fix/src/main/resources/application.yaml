@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: api-usuarios-fix
+
+  profiles:
+    active: developer

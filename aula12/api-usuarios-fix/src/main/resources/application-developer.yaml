@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: api-usuarios-fix
+
+server:
+  port: 8081
+
+datasource:
+  url: jdbc:postgresql://localhost:5431/api_usuarios_fix
+  username: coti
+  password: Coti@2026
