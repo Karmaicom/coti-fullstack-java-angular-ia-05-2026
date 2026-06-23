@@ -18,7 +18,7 @@ public class ConnectionFactory {
     @Value("${datasource.password}")
     private String password;
 
-    public Connection getConnection() throws Exception{
+    public Connection getConnection() throws Exception {
         return DriverManager.getConnection(url, username, password);
     }
 }
