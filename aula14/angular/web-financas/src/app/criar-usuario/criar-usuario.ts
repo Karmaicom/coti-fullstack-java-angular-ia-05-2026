@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -5,7 +6,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   selector: 'app-criar-usuario',
   imports: [
     FormsModule,
-    ReactiveFormsModule    
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './criar-usuario.html',
   styleUrl: './criar-usuario.css',

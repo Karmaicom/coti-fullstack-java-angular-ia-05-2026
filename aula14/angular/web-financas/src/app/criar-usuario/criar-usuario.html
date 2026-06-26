@@ -40,18 +40,37 @@
                             <label for="nome" class="form-label">Nome do usuário:</label>
                             <input type="text" class="form-control form-control-lg" id="nome" name="nome"
                                 placeholder="Digite seu nome completo" formControlName="nome" />
+                            
+                            @if(formCriarUsuario.get('nome')?.touched && formCriarUsuario.get('nome')?.invalid) {
+                                <div class="text-danger">
+                                    O nome é obrigatório e deve ter pelo menos 8 caracteres.
+                                </div>
+                            }
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control form-control-lg" id="email" name="email"
                                 placeholder="seuemail@exemplo.com" formControlName="email" />
+
+                            @if(formCriarUsuario.get('email')?.touched && formCriarUsuario.get('email')?.invalid) {
+                                <div class="text-danger">
+                                    O e-mail é obrigatório e deve ser um endereço válido.
+                                </div>
+                            }
                         </div>
 
                         <div class="mb-4">
                             <label for="senha" class="form-label">Senha</label>
                             <input type="password" class="form-control form-control-lg" id="senha" name="senha"
                                 placeholder="Digite sua senha" formControlName="senha" />
+
+                            @if(formCriarUsuario.get('senha')?.touched && formCriarUsuario.get('senha')?.invalid) {
+                                <div class="text-danger">
+                                    A senha é obrigatória e deve ter pelo menos uma letra maiuscula, uma letra minuscula, um numero, um simbolo 
+                                    e no minimo 8 caracteres..
+                                </div>
+                            }
                         </div>
 
                         <div class="mb-4">
@@ -59,6 +78,12 @@
                             <input type="password" class="form-control form-control-lg" id="senhaConfirmacao"
                                 name="senhaConfirmacao" placeholder="Confirme sua senha"
                                 formControlName="senhaConfirmacao" />
+
+                            @if(formCriarUsuario.get('senhaConfirmacao')?.touched && formCriarUsuario.get('senhaConfirmacao')?.invalid) {
+                                <div class="text-danger">
+                                    A confirmação da senha é obrigatória e deve estar igual a senha informada no campo anterior.
+                                </div>
+                            }
                         </div>
 
                         <div class="mb-4">
