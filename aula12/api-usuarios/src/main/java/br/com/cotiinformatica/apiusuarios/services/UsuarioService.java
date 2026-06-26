@@ -33,12 +33,13 @@ public class UsuarioService {
         //Buscar o usuario no banco de dados atraves do email
         var usuario = usuarioRepository.obterPorEmail(request.email());
 
-        //Buscar perfil no banco de dados
-        var perfil = perfilRepository.buscarPorId(usuario.getPerfilId());
-
         //Verificar se o usuario foi encontrado e se a senha é igual ao valor enviado
         //Exception AcessoNegadoException
         if (usuario != null && usuario.getSenha().equals(criptografarSenha(request.senha()))) {
+
+            //Buscar perfil no banco de dados
+            var perfil = perfilRepository.buscarPorId(usuario.getPerfilId());
+
             return new AutenticarUsuarioResponse(
                     usuario.getId(),
                     usuario.getNome(),
@@ -65,7 +66,7 @@ public class UsuarioService {
         if(usuarioRepository.obterPorEmail(request.email()) != null) {
             throw new EmailJaCadastradoException();
         }
-        
+
         //Capturar dados do usuario
         var usuario = new Usuario();
         usuario.setNome(request.nome());
