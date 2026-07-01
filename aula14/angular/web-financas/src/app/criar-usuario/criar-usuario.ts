@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,10 @@ export class CriarUsuario {
 
   //Injecao de dependencia da classe HttpCliente
   private http = inject(HttpClient);
+
+  //Atributos (signal)
+  mensagemSucesso = signal<string>('');
+  mensagemErro = signal<string>('');
 
   //Criando a estrutura do formulário
   formCriarUsuario = new FormGroup({
@@ -47,6 +51,10 @@ export class CriarUsuario {
   //Função par acapturar o evento de submit do firmulario
   criarUsuario() {
 
+    //Definir as mensagens
+    this.mensagemSucesso.set('');
+    this.mensagemErro.set('');
+
     //Criando um JSON somente com os campos requeridos pela API
     const json = {
       nome : this.formCriarUsuario.value.nome,
@@ -57,11 +65,14 @@ export class CriarUsuario {
     //Enviando a requisição para o backend
     this.http.post('http://localhost:8081/api/v1/usuario/criar', json)
       .subscribe({
-        next : (response) => { //Capturando se o retorno for sucesso da API
+        next : (response : any) => { //Capturando se o retorno for sucesso da API
           console.log('Sucesso!', response);
+          this.mensagemSucesso.set(`Parabéns ${response.nomeUsuario}, sua conta foi criada com sucesso!`);
+          this.formCriarUsuario.reset();
         },
-        error : (e) => { //Capturando se o retorno for diferente de HTTP do grupo 200
-          console.log("Error: ", e.error);
+        error : (error : any) => { //Capturando se o retorno for diferente de HTTP do grupo 200
+          console.log("Error: ", error.error);
+          this.mensagemErro.set(`${this.formCriarUsuario.value.email}: ${error.error}`);
         }
       });
 

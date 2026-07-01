@@ -34,6 +34,17 @@
                         </p>
                     </div>
 
+                    @if(mensagemSucesso()) {
+                        <div class="alert alert-success mt-2 mb-2">
+                            <strong>{{ mensagemSucesso() }}</strong>
+                        </div>
+                    }
+                    @else if(mensagemErro()) {
+                        <div class="alert alert-danger mt-2 mb-2">
+                            <strong>{{ mensagemErro() }}</strong>
+                        </div>
+                    }
+
                     <form [formGroup]="formCriarUsuario" (ngSubmit)="criarUsuario()">
 
                         <div class="mb-3">
