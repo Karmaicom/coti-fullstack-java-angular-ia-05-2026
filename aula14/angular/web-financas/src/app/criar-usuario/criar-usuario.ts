@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-criar-usuario',
@@ -25,7 +25,24 @@ export class CriarUsuario {
     senha: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/)]),
     senhaConfirmacao: new FormControl('', [Validators.required]),
     aceiteTermos: new FormControl(false, [Validators.requiredTrue])
+  }, {
+    validators: this.validarSenhasIguais
   });
+
+  //Função para validação customizada do campo 'senhaConfirmacao'
+  validarSenhasIguais(control: AbstractControl) : ValidationErrors | null {
+    //capturar o valor preenchido nos campos senha e senhaConfirmacao
+    const valorSenha = control.get('senha')?.value;
+    const valorSenhaConfirmacao = control.get('senhaConfirmacao')?.value;
+    
+    //verificar se o usuário informou a senha e os valores estão diferentes
+    if(valorSenha && valorSenhaConfirmacao && valorSenha !== valorSenhaConfirmacao) {
+      //retornar um erro de validacao
+      return { senhasDiferentes: true }
+    }
+
+    return null;
+  }
 
   //Função par acapturar o evento de submit do firmulario
   criarUsuario() {
